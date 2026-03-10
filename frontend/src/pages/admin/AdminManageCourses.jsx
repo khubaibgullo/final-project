@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { Container, Table, Button, Badge, Spinner, Alert } from 'react-bootstrap';
 import { getAllCoursesAdmin, deleteCourse, updateCourse } from '../../services/courseService';
 
 const AdminManageCourses = () => {
@@ -8,9 +7,7 @@ const AdminManageCourses = () => {
   const [message, setMessage] = useState('');
 
   useEffect(() => {
-    getAllCoursesAdmin()
-      .then(({ data }) => setCourses(data.courses))
-      .finally(() => setLoading(false));
+    getAllCoursesAdmin().then(({ data }) => setCourses(data.courses)).finally(() => setLoading(false));
   }, []);
 
   const handleDelete = async (id) => {
@@ -34,51 +31,71 @@ const AdminManageCourses = () => {
   };
 
   return (
-    <Container className="py-5">
-      <h2 className="fw-bold mb-4">Manage Courses</h2>
-      {message && <Alert variant="info" dismissible onClose={() => setMessage('')}>{message}</Alert>}
-      {loading ? (
-        <div className="text-center py-4"><Spinner animation="border" /></div>
-      ) : (
-        <Table responsive striped hover>
-          <thead className="table-dark">
-            <tr>
-              <th>#</th>
-              <th>Title</th>
-              <th>Instructor</th>
-              <th>Category</th>
-              <th>Price</th>
-              <th>Enrollments</th>
-              <th>Status</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {courses.map((c, i) => (
-              <tr key={c._id}>
-                <td>{i + 1}</td>
-                <td className="fw-semibold">{c.title}</td>
-                <td>{c.instructor?.name}</td>
-                <td><Badge bg="secondary">{c.category}</Badge></td>
-                <td>{c.price === 0 ? 'Free' : `$${c.price}`}</td>
-                <td>{c.enrollmentCount || 0}</td>
-                <td>
-                  <Badge bg={c.isPublished ? 'success' : 'warning'}>
-                    {c.isPublished ? 'Published' : 'Draft'}
-                  </Badge>
-                </td>
-                <td className="d-flex gap-1">
-                  <Button variant={c.isPublished ? 'outline-warning' : 'outline-success'} size="sm" onClick={() => togglePublish(c)}>
-                    {c.isPublished ? 'Unpublish' : 'Publish'}
-                  </Button>
-                  <Button variant="outline-danger" size="sm" onClick={() => handleDelete(c._id)}>Delete</Button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </Table>
-      )}
-    </Container>
+    <>
+      <div className="dashboard-header">
+        <div style={{ maxWidth: 1100, margin: '0 auto', padding: '0 24px' }}>
+          <p style={{ fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--ink-muted)', marginBottom: 6 }}>Admin</p>
+          <h1 style={{ fontSize: '2rem' }}>Manage courses</h1>
+        </div>
+      </div>
+
+      <div className="dashboard-content">
+        {message && (
+          <div className="alert alert-success" style={{ marginBottom: 24 }}>
+            {message}
+            <button onClick={() => setMessage('')} style={{ marginLeft: 'auto', background: 'none', border: 'none', cursor: 'pointer', color: 'inherit' }}>✕</button>
+          </div>
+        )}
+
+        {loading ? (
+          <div className="spinner-page"><div className="spinner" /></div>
+        ) : (
+          <div className="card">
+            <div style={{ overflowX: 'auto' }}>
+              <table className="lh-table">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Title</th>
+                    <th>Instructor</th>
+                    <th>Category</th>
+                    <th>Price</th>
+                    <th>Enrollments</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {courses.map((c, i) => (
+                    <tr key={c._id}>
+                      <td style={{ color: 'var(--ink-muted)' }}>{i + 1}</td>
+                      <td style={{ fontWeight: 500, color: 'var(--ink)' }}>{c.title}</td>
+                      <td>{c.instructor?.name}</td>
+                      <td><span className="badge badge-default">{c.category}</span></td>
+                      <td>{c.price === 0 ? 'Free' : `$${c.price}`}</td>
+                      <td>{c.enrollmentCount || 0}</td>
+                      <td>
+                        <span className={`badge ${c.isPublished ? 'badge-success' : 'badge-warning'}`}>
+                          {c.isPublished ? 'Published' : 'Draft'}
+                        </span>
+                      </td>
+                      <td>
+                        <div style={{ display: 'flex', gap: 6 }}>
+                          <button className="btn-ghost btn-sm" onClick={() => togglePublish(c)}>
+                            {c.isPublished ? 'Unpublish' : 'Publish'}
+                          </button>
+                          <button className="btn-danger btn-sm" onClick={() => handleDelete(c._id)}>Delete</button>
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        )}
+      </div>
+    </>
   );
 };
 

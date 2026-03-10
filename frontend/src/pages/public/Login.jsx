@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { Container, Card, Form, Button, Alert } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 
@@ -12,8 +11,7 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
-    setError('');
+    setLoading(true); setError('');
     try {
       const user = await login(form.email, form.password);
       if (user.role === 'admin') navigate('/admin/dashboard');
@@ -26,40 +24,42 @@ const Login = () => {
   };
 
   return (
-    <Container className="d-flex align-items-center justify-content-center" style={{ minHeight: '80vh' }}>
-      <Card className="shadow-lg p-4" style={{ width: '420px' }}>
-        <h2 className="fw-bold text-center mb-4">🎓 Welcome Back</h2>
-        {error && <Alert variant="danger">{error}</Alert>}
-        <Form onSubmit={handleSubmit}>
-          <Form.Group className="mb-3">
-            <Form.Label>Email Address</Form.Label>
-            <Form.Control
-              type="email"
-              placeholder="you@example.com"
-              value={form.email}
-              onChange={(e) => setForm({ ...form, email: e.target.value })}
-              required
-            />
-          </Form.Group>
-          <Form.Group className="mb-4">
-            <Form.Label>Password</Form.Label>
-            <Form.Control
-              type="password"
-              placeholder="Your password"
-              value={form.password}
-              onChange={(e) => setForm({ ...form, password: e.target.value })}
-              required
-            />
-          </Form.Group>
-          <Button type="submit" variant="primary" className="w-100" disabled={loading}>
-            {loading ? 'Logging in...' : 'Login'}
-          </Button>
-        </Form>
-        <p className="text-center mt-3 text-muted">
-          Don't have an account? <Link to="/register">Register</Link>
-        </p>
-      </Card>
-    </Container>
+    <div className="auth-layout">
+      <div className="auth-card">
+        <h1 className="auth-title">Welcome back</h1>
+        <p className="auth-subtitle">Sign in to continue your learning journey</p>
+
+        {error && (
+          <div className="alert alert-danger">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style={{ flexShrink: 0 }}>
+              <circle cx="8" cy="8" r="7" stroke="currentColor" strokeWidth="1.5" />
+              <path d="M8 5v4M8 11v.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+            </svg>
+            {error}
+          </div>
+        )}
+
+        <form onSubmit={handleSubmit}>
+          <div className="form-group">
+            <label className="form-label">Email address</label>
+            <input className="form-control" type="email" placeholder="you@example.com"
+              value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} required />
+          </div>
+          <div className="form-group" style={{ marginBottom: 28 }}>
+            <label className="form-label">Password</label>
+            <input className="form-control" type="password" placeholder="Your password"
+              value={form.password} onChange={(e) => setForm({ ...form, password: e.target.value })} required />
+          </div>
+          <button type="submit" className="btn-primary btn-full" disabled={loading}>
+            {loading ? 'Signing in…' : 'Sign in →'}
+          </button>
+        </form>
+
+        <div className="auth-footer">
+          Don't have an account? <Link to="/register">Create one</Link>
+        </div>
+      </div>
+    </div>
   );
 };
 

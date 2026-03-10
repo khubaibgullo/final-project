@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Container, Card, Form, Button, Alert, ListGroup } from 'react-bootstrap';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { getCourseById, addLesson } from '../../services/courseService';
 
 const UploadLesson = () => {
@@ -21,7 +20,7 @@ const UploadLesson = () => {
       const { data } = await addLesson(id, form);
       setCourse(data.course);
       setForm({ title: '', content: '', videoUrl: '', duration: 0 });
-      setMessage('Lesson added successfully!');
+      setMessage('success');
     } catch (err) {
       setMessage(err.response?.data?.message || 'Error adding lesson.');
     }
@@ -29,55 +28,81 @@ const UploadLesson = () => {
   };
 
   return (
-    <Container className="py-5">
-      <h2 className="fw-bold mb-1">Upload Lessons</h2>
-      <p className="text-muted mb-4">Course: <strong>{course?.title}</strong></p>
-      <div className="row g-4">
-        <div className="col-md-7">
-          <Card className="shadow-sm p-4">
-            <h5 className="fw-bold mb-3">Add New Lesson</h5>
-            {message && <Alert variant={message.includes('success') ? 'success' : 'danger'}>{message}</Alert>}
-            <Form onSubmit={handleSubmit}>
-              <Form.Group className="mb-3">
-                <Form.Label>Lesson Title *</Form.Label>
-                <Form.Control value={form.title} onChange={(e) => setForm({ ...form, title: e.target.value })} required placeholder="e.g. Introduction to React Hooks" />
-              </Form.Group>
-              <Form.Group className="mb-3">
-                <Form.Label>Content</Form.Label>
-                <Form.Control as="textarea" rows={4} value={form.content} onChange={(e) => setForm({ ...form, content: e.target.value })} placeholder="Lesson content or description..." />
-              </Form.Group>
-              <Form.Group className="mb-3">
-                <Form.Label>Video URL</Form.Label>
-                <Form.Control value={form.videoUrl} onChange={(e) => setForm({ ...form, videoUrl: e.target.value })} placeholder="https://youtube.com/..." />
-              </Form.Group>
-              <Form.Group className="mb-4">
-                <Form.Label>Duration (minutes)</Form.Label>
-                <Form.Control type="number" min={0} value={form.duration} onChange={(e) => setForm({ ...form, duration: Number(e.target.value) })} />
-              </Form.Group>
-              <Button type="submit" variant="primary" disabled={loading}>
-                {loading ? 'Adding...' : '+ Add Lesson'}
-              </Button>
-            </Form>
-          </Card>
+    <div style={{ maxWidth: 1000, margin: '0 auto', padding: '60px 24px' }}>
+      <Link to="/instructor/dashboard" className="btn-ghost btn-sm" style={{ marginBottom: 24, display: 'inline-flex' }}>← Back to dashboard</Link>
+      <h1 style={{ fontSize: '2rem', marginBottom: 4 }}>Upload lessons</h1>
+      <p style={{ color: 'var(--ink-muted)', marginBottom: 40 }}>{course?.title}</p>
+
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 340px', gap: 32, alignItems: 'start' }}>
+        {/* Form */}
+        <div className="card">
+          <div className="card-header"><h3>Add new lesson</h3></div>
+          <div className="card-body">
+            {message === 'success' && <div className="alert alert-success">Lesson added successfully!</div>}
+            {message && message !== 'success' && <div className="alert alert-danger">{message}</div>}
+
+            <form onSubmit={handleSubmit}>
+              <div className="form-group">
+                <label className="form-label">Lesson title *</label>
+                <input className="form-control" value={form.title}
+                  onChange={(e) => setForm({ ...form, title: e.target.value })}
+                  required placeholder="e.g. Introduction to React Hooks" />
+              </div>
+              <div className="form-group">
+                <label className="form-label">Content</label>
+                <textarea className="form-control" rows={4} value={form.content}
+                  onChange={(e) => setForm({ ...form, content: e.target.value })}
+                  placeholder="Lesson content or description…"
+                  style={{ resize: 'vertical', minHeight: 100 }} />
+              </div>
+              <div className="form-group">
+                <label className="form-label">Video URL</label>
+                <input className="form-control" value={form.videoUrl}
+                  onChange={(e) => setForm({ ...form, videoUrl: e.target.value })}
+                  placeholder="https://youtube.com/…" />
+              </div>
+              <div className="form-group" style={{ marginBottom: 28 }}>
+                <label className="form-label">Duration (minutes)</label>
+                <input className="form-control" type="number" min={0} value={form.duration}
+                  onChange={(e) => setForm({ ...form, duration: Number(e.target.value) })} />
+              </div>
+              <button type="submit" className="btn-primary" disabled={loading}>
+                {loading ? 'Adding…' : '+ Add lesson'}
+              </button>
+            </form>
+          </div>
         </div>
-        <div className="col-md-5">
-          <Card className="shadow-sm">
-            <Card.Header className="fw-bold bg-white">Course Lessons ({course?.lessons?.length || 0})</Card.Header>
-            <ListGroup variant="flush">
-              {!course?.lessons?.length && (
-                <ListGroup.Item className="text-muted text-center py-4">No lessons yet.</ListGroup.Item>
-              )}
-              {course?.lessons?.map((lesson, i) => (
-                <ListGroup.Item key={lesson._id}>
-                  <div className="fw-semibold">{i + 1}. {lesson.title}</div>
-                  {lesson.duration > 0 && <small className="text-muted">{lesson.duration} min</small>}
-                </ListGroup.Item>
+
+        {/* Lessons List */}
+        <div className="card">
+          <div className="card-header">
+            <h3>Lessons ({course?.lessons?.length || 0})</h3>
+          </div>
+          {!course?.lessons?.length ? (
+            <div className="empty-state" style={{ padding: 32 }}>
+              <p style={{ fontSize: '0.875rem' }}>No lessons yet.</p>
+            </div>
+          ) : (
+            <div>
+              {course.lessons.map((lesson, i) => (
+                <div key={lesson._id} style={{
+                  padding: '14px 20px',
+                  borderBottom: i < course.lessons.length - 1 ? '1px solid var(--paper-warm)' : 'none',
+                }}>
+                  <div style={{ display: 'flex', gap: 10, alignItems: 'center' }}>
+                    <span style={{ fontSize: '0.7rem', color: 'var(--ink-muted)', minWidth: 20 }}>{i + 1}.</span>
+                    <div>
+                      <div style={{ fontSize: '0.875rem', fontWeight: 500, color: 'var(--ink)' }}>{lesson.title}</div>
+                      {lesson.duration > 0 && <div style={{ fontSize: '0.75rem', color: 'var(--ink-muted)' }}>{lesson.duration} min</div>}
+                    </div>
+                  </div>
+                </div>
               ))}
-            </ListGroup>
-          </Card>
+            </div>
+          )}
         </div>
       </div>
-    </Container>
+    </div>
   );
 };
 

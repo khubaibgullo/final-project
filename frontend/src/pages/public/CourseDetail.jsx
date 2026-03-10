@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { Container, Row, Col, Badge, Button, ListGroup, Spinner, Alert } from 'react-bootstrap';
 import { getCourseById } from '../../services/courseService';
 import { enrollInCourse } from '../../services/userService';
 import { useAuth } from '../../context/AuthContext';
@@ -15,9 +14,7 @@ const CourseDetail = () => {
   const [message, setMessage] = useState('');
 
   useEffect(() => {
-    getCourseById(id)
-      .then(({ data }) => setCourse(data.course))
-      .finally(() => setLoading(false));
+    getCourseById(id).then(({ data }) => setCourse(data.course)).finally(() => setLoading(false));
   }, [id]);
 
   const handleEnroll = async () => {
@@ -25,66 +22,114 @@ const CourseDetail = () => {
     setEnrolling(true);
     try {
       await enrollInCourse(id);
-      setMessage('Successfully enrolled! Go to your dashboard to start learning.');
+      setMessage('success');
     } catch (err) {
       setMessage(err.response?.data?.message || 'Error enrolling.');
     }
     setEnrolling(false);
   };
 
-  if (loading) return <div className="text-center py-5"><Spinner animation="border" /></div>;
-  if (!course) return <Container className="py-5"><Alert variant="danger">Course not found.</Alert></Container>;
+  if (loading) return <div className="spinner-page" style={{ minHeight: '60vh' }}><div className="spinner" /></div>;
+  if (!course) return (
+    <div className="container" style={{ padding: '80px 24px' }}>
+      <div className="alert alert-danger">Course not found.</div>
+    </div>
+  );
 
   return (
-    <Container className="py-5">
-      <Row className="g-5">
-        <Col md={8}>
-          <Badge bg="secondary" className="mb-2">{course.category}</Badge>
-          <h1 className="fw-bold">{course.title}</h1>
-          <p className="text-muted">👨‍🏫 Instructor: <strong>{course.instructor?.name}</strong></p>
-          <hr />
-          <h5 className="fw-bold">About This Course</h5>
-          <p>{course.description}</p>
-          <h5 className="fw-bold mt-4">Course Lessons ({course.lessons?.length || 0})</h5>
-          <ListGroup variant="flush">
-            {course.lessons?.length === 0 && <ListGroup.Item className="text-muted">No lessons added yet.</ListGroup.Item>}
-            {course.lessons?.map((lesson, i) => (
-              <ListGroup.Item key={lesson._id} className="d-flex justify-content-between">
-                <span>📖 {i + 1}. {lesson.title}</span>
-                {lesson.duration > 0 && <span className="text-muted">{lesson.duration} min</span>}
-              </ListGroup.Item>
-            ))}
-          </ListGroup>
-        </Col>
-        <Col md={4}>
-          <div className="sticky-top" style={{ top: '80px' }}>
-            <div className="card shadow-lg p-4">
-              <img
-                src={course.thumbnail || `https://via.placeholder.com/300x200?text=${encodeURIComponent(course.title)}`}
-                alt={course.title}
-                className="rounded mb-3 w-100"
-                style={{ objectFit: 'cover', height: '180px' }}
-              />
-              <h2 className="fw-bold text-success mb-3">
-                {course.price === 0 ? 'Free' : `$${course.price}`}
-              </h2>
-              {message && <Alert variant={message.includes('Success') ? 'success' : 'danger'} className="small">{message}</Alert>}
-              {user?.role === 'student' && (
-                <Button variant="primary" size="lg" className="w-100" onClick={handleEnroll} disabled={enrolling}>
-                  {enrolling ? 'Enrolling...' : 'Enroll Now'}
-                </Button>
+    <div style={{ background: 'var(--paper-warm)', minHeight: '100vh' }}>
+      {/* Hero */}
+      <div style={{ background: 'var(--ink)', color: 'var(--paper)', padding: '56px 24px 48px' }}>
+        <div className="container">
+          <div style={{ maxWidth: 640 }}>
+            <span className="badge" style={{ background: 'rgba(250,249,247,0.15)', color: 'var(--paper)', marginBottom: 16 }}>{course.category}</span>
+            <h1 style={{ fontSize: 'clamp(1.8rem, 4vw, 2.8rem)', color: 'var(--paper)', marginBottom: 16 }}>{course.title}</h1>
+            <p style={{ color: 'rgba(250,249,247,0.6)', marginBottom: 0 }}>
+              by {course.instructor?.name} · {course.enrollmentCount || 0} students enrolled
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div className="container" style={{ padding: '48px 24px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 340px', gap: 40, alignItems: 'start' }}>
+          {/* Content */}
+          <div>
+            <div className="card" style={{ marginBottom: 24 }}>
+              <div className="card-header"><h3>About this course</h3></div>
+              <div className="card-body">
+                <p style={{ color: 'var(--ink-soft)', lineHeight: 1.75 }}>{course.description}</p>
+              </div>
+            </div>
+
+            <div className="card">
+              <div className="card-header">
+                <h3>Course lessons ({course.lessons?.length || 0})</h3>
+              </div>
+              {(!course.lessons || course.lessons.length === 0) ? (
+                <div className="card-body">
+                  <p style={{ color: 'var(--ink-muted)', fontSize: '0.875rem' }}>No lessons added yet.</p>
+                </div>
+              ) : (
+                <div>
+                  {course.lessons.map((lesson, i) => (
+                    <div key={lesson._id} style={{
+                      display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+                      padding: '14px 24px', borderBottom: i < course.lessons.length - 1 ? '1px solid var(--paper-warm)' : 'none',
+                    }}>
+                      <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
+                        <span style={{ width: 24, height: 24, background: 'var(--paper-warm)', border: '1px solid var(--paper-mid)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.7rem', color: 'var(--ink-muted)', flexShrink: 0 }}>{i + 1}</span>
+                        <span style={{ fontSize: '0.9rem', color: 'var(--ink-soft)' }}>{lesson.title}</span>
+                      </div>
+                      {lesson.duration > 0 && (
+                        <span style={{ fontSize: '0.75rem', color: 'var(--ink-muted)' }}>{lesson.duration} min</span>
+                      )}
+                    </div>
+                  ))}
+                </div>
               )}
-              {!user && (
-                <Button variant="primary" size="lg" className="w-100" onClick={() => navigate('/login')}>
-                  Login to Enroll
-                </Button>
-              )}
-              <p className="text-muted text-center small mt-2">👨‍🎓 {course.enrollmentCount} students enrolled</p>
             </div>
           </div>
-        </Col>
-      </Row>
-    </Container>
+
+          {/* Enroll Sidebar */}
+          <div className="enroll-card">
+            <img
+              src={course.thumbnail || `https://picsum.photos/seed/${course._id}/600/400`}
+              alt={course.title}
+              style={{ width: '100%', height: 200, objectFit: 'cover', display: 'block' }}
+            />
+            <div style={{ padding: '24px' }}>
+              <div style={{ fontSize: '2rem', fontFamily: 'DM Serif Display, Georgia, serif', color: 'var(--ink)', marginBottom: 4 }}>
+                {course.price === 0 ? 'Free' : `$${course.price}`}
+              </div>
+              <p style={{ fontSize: '0.8rem', color: 'var(--ink-muted)', marginBottom: 20 }}>
+                One-time payment. Lifetime access.
+              </p>
+
+              {message === 'success' && (
+                <div className="alert alert-success" style={{ fontSize: '0.8rem' }}>
+                  Enrolled! Go to your <a href="/student/dashboard" style={{ color: 'inherit', fontWeight: 600 }}>dashboard</a> to start.
+                </div>
+              )}
+              {message && message !== 'success' && (
+                <div className="alert alert-danger" style={{ fontSize: '0.8rem' }}>{message}</div>
+              )}
+
+              {user?.role === 'student' && (
+                <button className="btn-primary btn-full btn-lg" onClick={handleEnroll} disabled={enrolling}>
+                  {enrolling ? 'Enrolling…' : 'Enroll now →'}
+                </button>
+              )}
+              {!user && (
+                <button className="btn-primary btn-full btn-lg" onClick={() => navigate('/login')}>
+                  Sign in to enroll
+                </button>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 };
 

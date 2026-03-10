@@ -1,7 +1,8 @@
 import { useState } from 'react';
-import { Container, Card, Form, Button, Alert, Badge } from 'react-bootstrap';
 import { useAuth } from '../../context/AuthContext';
 import { updateProfile } from '../../services/userService';
+
+const ROLE_BADGE = { admin: 'badge-danger', instructor: 'badge-warning', student: 'badge-primary' };
 
 const Profile = () => {
   const { user } = useAuth();
@@ -14,7 +15,7 @@ const Profile = () => {
     setLoading(true);
     try {
       await updateProfile(form);
-      setMessage('Profile updated successfully!');
+      setMessage('success');
     } catch (err) {
       setMessage(err.response?.data?.message || 'Update failed.');
     }
@@ -22,37 +23,50 @@ const Profile = () => {
   };
 
   return (
-    <Container className="py-5" style={{ maxWidth: '500px' }}>
-      <h2 className="fw-bold mb-4">My Profile</h2>
-      <Card className="shadow-sm p-4">
-        <div className="text-center mb-4">
-          <div style={{ width: 80, height: 80, background: '#0d6efd', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '2rem', margin: '0 auto' }}>
-            {user?.name?.charAt(0).toUpperCase()}
-          </div>
-          <Badge bg={user?.role === 'admin' ? 'danger' : user?.role === 'instructor' ? 'warning' : 'primary'} className="mt-2">
-            {user?.role}
-          </Badge>
+    <div style={{ maxWidth: 520, margin: '0 auto', padding: '60px 24px' }}>
+      <h1 style={{ fontSize: '2rem', marginBottom: 32 }}>My profile</h1>
+
+      <div className="card" style={{ marginBottom: 32, padding: '32px', textAlign: 'center' }}>
+        <div style={{
+          width: 72, height: 72,
+          background: 'var(--ink)', borderRadius: '50%',
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+          fontSize: '1.8rem', color: 'var(--paper)', margin: '0 auto 16px',
+          fontFamily: 'DM Serif Display, Georgia, serif',
+        }}>
+          {user?.name?.charAt(0).toUpperCase()}
         </div>
-        {message && <Alert variant={message.includes('success') ? 'success' : 'danger'}>{message}</Alert>}
-        <Form onSubmit={handleSubmit}>
-          <Form.Group className="mb-3">
-            <Form.Label>Full Name</Form.Label>
-            <Form.Control value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} required />
-          </Form.Group>
-          <Form.Group className="mb-3">
-            <Form.Label>Email</Form.Label>
-            <Form.Control value={user?.email} disabled />
-          </Form.Group>
-          <Form.Group className="mb-4">
-            <Form.Label>Avatar URL</Form.Label>
-            <Form.Control placeholder="https://..." value={form.avatar} onChange={(e) => setForm({ ...form, avatar: e.target.value })} />
-          </Form.Group>
-          <Button type="submit" variant="primary" className="w-100" disabled={loading}>
-            {loading ? 'Saving...' : 'Save Changes'}
-          </Button>
-        </Form>
-      </Card>
-    </Container>
+        <p style={{ fontWeight: 500, marginBottom: 6 }}>{user?.name}</p>
+        <p style={{ color: 'var(--ink-muted)', fontSize: '0.875rem', marginBottom: 12 }}>{user?.email}</p>
+        <span className={`badge ${ROLE_BADGE[user?.role] || 'badge-default'}`}>{user?.role}</span>
+      </div>
+
+      {message === 'success' && <div className="alert alert-success">Profile updated successfully.</div>}
+      {message && message !== 'success' && <div className="alert alert-danger">{message}</div>}
+
+      <div className="card">
+        <div className="card-header"><h3>Edit details</h3></div>
+        <div className="card-body">
+          <form onSubmit={handleSubmit}>
+            <div className="form-group">
+              <label className="form-label">Full name</label>
+              <input className="form-control" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} required />
+            </div>
+            <div className="form-group">
+              <label className="form-label">Email</label>
+              <input className="form-control" value={user?.email} disabled />
+            </div>
+            <div className="form-group" style={{ marginBottom: 28 }}>
+              <label className="form-label">Avatar URL</label>
+              <input className="form-control" placeholder="https://…" value={form.avatar} onChange={(e) => setForm({ ...form, avatar: e.target.value })} />
+            </div>
+            <button type="submit" className="btn-primary btn-full" disabled={loading}>
+              {loading ? 'Saving…' : 'Save changes'}
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
   );
 };
 

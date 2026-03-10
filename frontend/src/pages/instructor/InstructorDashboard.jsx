@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { Container, Row, Col, Card, Table, Button, Spinner, Badge } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { getAllCoursesAdmin, deleteCourse } from '../../services/courseService';
 import { useAuth } from '../../context/AuthContext';
@@ -10,9 +9,7 @@ const InstructorDashboard = () => {
   const [loading, setLoading] = useState(true);
 
   const fetchCourses = () => {
-    getAllCoursesAdmin()
-      .then(({ data }) => setCourses(data.courses))
-      .finally(() => setLoading(false));
+    getAllCoursesAdmin().then(({ data }) => setCourses(data.courses)).finally(() => setLoading(false));
   };
 
   useEffect(() => { fetchCourses(); }, []);
@@ -26,73 +23,80 @@ const InstructorDashboard = () => {
   const totalEnrollments = courses.reduce((sum, c) => sum + (c.enrollmentCount || 0), 0);
 
   return (
-    <Container className="py-5">
-      <div className="d-flex justify-content-between align-items-center mb-4">
-        <div>
-          <h2 className="fw-bold mb-0">Instructor Dashboard</h2>
-          <p className="text-muted">Welcome, {user?.name}</p>
+    <>
+      <div className="dashboard-header">
+        <div style={{ maxWidth: 1100, margin: '0 auto', padding: '0 24px', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
+          <div>
+            <p style={{ fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--ink-muted)', marginBottom: 6 }}>Instructor</p>
+            <h1 style={{ fontSize: '2rem', marginBottom: 4 }}>Dashboard</h1>
+            <p style={{ color: 'var(--ink-soft)' }}>Welcome back, {user?.name}</p>
+          </div>
+          <Link to="/instructor/create-course" className="btn-primary">+ New course</Link>
         </div>
-        <Button as={Link} to="/instructor/create-course" variant="primary">+ Create Course</Button>
       </div>
 
-      <Row className="g-3 mb-4">
-        {[
-          { label: 'Total Courses', value: courses.length, color: 'primary' },
-          { label: 'Total Enrollments', value: totalEnrollments, color: 'success' },
-          { label: 'Published', value: courses.filter(c => c.isPublished).length, color: 'info' },
-        ].map((s) => (
-          <Col md={4} key={s.label}>
-            <Card className="text-center border-0 shadow-sm p-3">
-              <h2 className={`fw-bold text-${s.color}`}>{s.value}</h2>
-              <p className="text-muted mb-0">{s.label}</p>
-            </Card>
-          </Col>
-        ))}
-      </Row>
+      <div className="dashboard-content">
+        <div className="grid grid-3" style={{ marginBottom: 40 }}>
+          {[
+            { label: 'Total courses', value: courses.length },
+            { label: 'Total enrollments', value: totalEnrollments },
+            { label: 'Published', value: courses.filter(c => c.isPublished).length },
+          ].map((s) => (
+            <div key={s.label} className="stat-card">
+              <div className="stat-card__value">{s.value}</div>
+              <div className="stat-card__label">{s.label}</div>
+            </div>
+          ))}
+        </div>
 
-      <Card className="shadow-sm">
-        <Card.Header className="fw-bold bg-white">My Courses</Card.Header>
-        {loading ? (
-          <div className="text-center py-4"><Spinner animation="border" /></div>
-        ) : (
-          <Table responsive hover className="mb-0">
-            <thead className="table-light">
-              <tr>
-                <th>Title</th>
-                <th>Category</th>
-                <th>Price</th>
-                <th>Enrollments</th>
-                <th>Status</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {courses.length === 0 && (
-                <tr><td colSpan={6} className="text-center text-muted py-4">No courses yet. Create your first!</td></tr>
-              )}
-              {courses.map((course) => (
-                <tr key={course._id}>
-                  <td className="fw-semibold">{course.title}</td>
-                  <td><Badge bg="secondary">{course.category}</Badge></td>
-                  <td>{course.price === 0 ? 'Free' : `$${course.price}`}</td>
-                  <td>{course.enrollmentCount || 0}</td>
-                  <td>
-                    <Badge bg={course.isPublished ? 'success' : 'warning'}>
-                      {course.isPublished ? 'Published' : 'Draft'}
-                    </Badge>
-                  </td>
-                  <td>
-                    <Button as={Link} to={`/instructor/edit-course/${course._id}`} variant="outline-primary" size="sm" className="me-2">Edit</Button>
-                    <Button as={Link} to={`/instructor/upload-lesson/${course._id}`} variant="outline-success" size="sm" className="me-2">+ Lessons</Button>
-                    <Button variant="outline-danger" size="sm" onClick={() => handleDelete(course._id)}>Delete</Button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </Table>
-        )}
-      </Card>
-    </Container>
+        <div className="card">
+          <div className="card-header"><h3>My courses</h3></div>
+          {loading ? (
+            <div className="spinner-page"><div className="spinner" /></div>
+          ) : (
+            <div style={{ overflowX: 'auto' }}>
+              <table className="lh-table">
+                <thead>
+                  <tr>
+                    <th>Title</th>
+                    <th>Category</th>
+                    <th>Price</th>
+                    <th>Enrollments</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {courses.length === 0 && (
+                    <tr><td colSpan={6} style={{ textAlign: 'center', color: 'var(--ink-muted)', padding: 40 }}>No courses yet. Create your first one!</td></tr>
+                  )}
+                  {courses.map((course) => (
+                    <tr key={course._id}>
+                      <td style={{ fontWeight: 500, color: 'var(--ink)' }}>{course.title}</td>
+                      <td><span className="badge badge-default">{course.category}</span></td>
+                      <td>{course.price === 0 ? 'Free' : `$${course.price}`}</td>
+                      <td>{course.enrollmentCount || 0}</td>
+                      <td>
+                        <span className={`badge ${course.isPublished ? 'badge-success' : 'badge-warning'}`}>
+                          {course.isPublished ? 'Published' : 'Draft'}
+                        </span>
+                      </td>
+                      <td>
+                        <div style={{ display: 'flex', gap: 6 }}>
+                          <Link to={`/instructor/edit-course/${course._id}`} className="btn-ghost btn-sm">Edit</Link>
+                          <Link to={`/instructor/upload-lesson/${course._id}`} className="btn-ghost btn-sm">Lessons</Link>
+                          <button className="btn-danger btn-sm" onClick={() => handleDelete(course._id)}>Delete</button>
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+        </div>
+      </div>
+    </>
   );
 };
 

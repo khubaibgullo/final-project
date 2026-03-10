@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import './design-system.css';
 import { AuthProvider } from './context/AuthContext';
 import ProtectedRoute from './routes/ProtectedRoute';
 import AppNavbar from './components/Navbar';
@@ -75,9 +75,9 @@ function App() {
 
           {/* Fallbacks */}
           <Route path="/unauthorized" element={
-            <div className="text-center py-5">
-              <h2>🚫 Access Denied</h2>
-              <p className="text-muted">You don't have permission to view this page.</p>
+            <div style={{ textAlign: "center", padding: "100px 24px" }}>
+              <h2 style={{ fontSize: "2rem", marginBottom: 12 }}>Access denied</h2>
+              <p style={{ color: "var(--ink-muted)" }}>You don't have permission to view this page.</p>
             </div>
           } />
           <Route path="*" element={<Navigate to="/" replace />} />
