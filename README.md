@@ -1,3 +1,6 @@
+## 📂 Note
+- The backend is deployed on Render’s Free Plan. The server automatically "sleeps" after 15 minutes of inactivity. If you are accessing the app for the first time in a while, it may take 30–60 seconds for the server to spin up and respond to the first request. 
+
 # 🎓 LearnHub — Full Stack MERN Learning Management System
 
 ---
