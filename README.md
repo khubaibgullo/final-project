@@ -101,7 +101,8 @@ lms/
 ---
 
 ## 🧾 Database Design
-[ERD Diagram](<Images/ERD-diagram.png>)
+![ERD Diagram](<Images/ERD-diagram.png>)
+
 
 ---
 
