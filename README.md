@@ -266,5 +266,5 @@ Set environment variables on your hosting platform matching `.env`.
 I confirm that this project is my own work and I have not copied it from any unauthorized source.
 
 **Student Name:** Muhammad Khubaib
-**Signature:** \***\*\*\*\*\***\_\_\***\*\*\*\*\***  
-**Date:** \***\*\*\*\*\***\_\_\***\*\*\*\*\***
+**Signature:** Muhammad Khubaib
+**Date:**  10 March 2026
