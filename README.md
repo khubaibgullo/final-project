@@ -101,8 +101,9 @@ lms/
 ---
 
 ## 🧾 Database Design
+[ERD Diagram](<Images/ERD-diagram.png>)
 
-
+---
 
 ## 🔌 API Endpoints
 
