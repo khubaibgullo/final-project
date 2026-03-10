@@ -204,13 +204,6 @@ lms/
 ![User Screenshot 5](<Images/user/Screenshot%20(322).png>)
 ![User Screenshot 5](<Images/user/Screenshot%20(323).png>)
 
----
-
-### 🗄️ Seed Data (Database Setup)
-
-![Seed Data](Images/seed-data.png)
-
-> **Seed file** defines test users (Admin, Instructors, Students) and course data used to populate the database for development and testing.
 
 ---
 
@@ -227,8 +220,13 @@ lms/
 ```bash
 cd backend
 npm install
-cp .env .env
-# Edit .env with your MONGO_URI and JWT_SECRET
+Add .env file 
+# Edit .env with your
+PORT=5000
+MONGO_URI=mongodb+srv://******:********@cluster0.ao3dopn.mongodb.net/lms?retryWrites=true&w=majority&appName=Cluster0
+JWT_SECRET=your_super_secret_jwt_key_here
+JWT_EXPIRES_IN=7d
+CLIENT_URL= http://localhost:3000
 npm run dev
 ```
 
@@ -237,6 +235,8 @@ npm run dev
 ```bash
 cd frontend
 npm install
+Add .env file 
+# Edit .env with your REACT_APP_API_URL to Backend server running URL http://localhost:3000/api
 npm start
 ```
 
