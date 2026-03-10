@@ -8,6 +8,7 @@
 ## 📂 Project Links
 - **GitHub Repository:** [https://github.com/khubaibgullo/final-project](https://github.com/khubaibgullo/final-project)
 - **Live Deployment:** [Vercel App](https://final-project-amber-kappa.vercel.app/)
+- **Api BASE_URL:** [Render](https://final-project-naqk.onrender.com/)
 
 ## 🚀 Demo Credentials — Try It Now!
 
@@ -98,6 +99,10 @@ lms/
 ```
 
 ---
+
+## 🧾 Database Design
+
+
 
 ## 🔌 API Endpoints
 
@@ -237,20 +242,6 @@ The backend runs on **http://localhost:5000** and the frontend on **http://local
 
 ---
 
-## 📊 Marking Criteria Coverage
-
-| Criteria                       | Implementation                              |
-| ------------------------------ | ------------------------------------------- |
-| UI/UX Design (15)              | Bootstrap 5, responsive layout, hero, cards |
-| React Implementation (15)      | Hooks, Context API, React Router v6         |
-| Backend API Development (20)   | Full RESTful API with Express               |
-| Database Design (15)           | Mongoose models with relationships          |
-| Authentication & Security (15) | JWT + bcrypt + protected routes             |
-| Role-Based Functionality (10)  | Admin/Instructor/Student dashboards         |
-| Code Quality & Structure (5)   | MVC pattern, services layer, clean code     |
-| Deployment & Testing (5)       | Ready for Heroku/Render/Vercel deployment   |
-
----
 
 ## 🚀 Deployment
 
