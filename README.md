@@ -209,8 +209,6 @@ lms/
 
 ### 📱 Mobile View
 
-### 📱 Mobile View
-
 <table>
   <tr>
     <td><img src="Images/mobile/img1.jpeg" width="200"/></td>
@@ -238,14 +236,13 @@ lms/
 ### 🎨 Theme / UI
 
 ![Theme Screenshot 2](<Images/theme/Screenshot (350).png>)
-![Theme Screenshot 3](<Images/theme/Screenshot (351).png>)
 ![Theme Screenshot 5](<Images/theme/Screenshot (354).png>)
+![Theme Screenshot 3](<Images/theme/Screenshot (351).png>)
 ![Theme Screenshot 6](<Images/theme/Screenshot (355).png>)
 
 ---
 
 ````
-
 
 ## ⚙️ Installation & Setup
 
@@ -303,4 +300,4 @@ I confirm that this project is my own work and I have not copied it from any una
 
 ## **Student Name:** Muhammad Khubaib
 
-**Date:** 10 March 2026
+**Date:** 12 March 2026
