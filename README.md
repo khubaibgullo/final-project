@@ -175,10 +175,6 @@ lms/
 
 ## 🖼️ Screenshots
 
-### 🗄️ Database ERD
-
-![ERD Diagram](Images/ERD-diagram.png)
-
 ### 🔑 Admin Module
 
 ![Admin Screenshot 1](<Images/admin/Screenshot (332).png>)
