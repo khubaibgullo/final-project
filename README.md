@@ -1,3 +1,6 @@
+## 📂 Note
+- The backend is deployed on Render’s Free Plan. The server automatically "sleeps" after 15 minutes of inactivity. If you are accessing the app for the first time in a while, it may take 30–60 seconds for the server to spin up and respond to the first request. 
+
 # 🎓 LearnHub — Full Stack MERN Learning Management System
 
 ---
@@ -5,6 +8,7 @@
 ## 📂 Project Links
 - **GitHub Repository:** [https://github.com/khubaibgullo/final-project](https://github.com/khubaibgullo/final-project)
 - **Live Deployment:** [Vercel App](https://final-project-amber-kappa.vercel.app/)
+- **Api BASE_URL:** [Render](https://final-project-naqk.onrender.com/)
 
 ## 🚀 Demo Credentials — Try It Now!
 
@@ -93,6 +97,12 @@ lms/
         ├── App.jsx
         └── index.js
 ```
+
+---
+
+## 🧾 Database Design
+![ERD Diagram](<Images/ERD-diagram.png>)
+
 
 ---
 
@@ -194,13 +204,6 @@ lms/
 ![User Screenshot 5](<Images/user/Screenshot%20(322).png>)
 ![User Screenshot 5](<Images/user/Screenshot%20(323).png>)
 
----
-
-### 🗄️ Seed Data (Database Setup)
-
-![Seed Data](Images/seed-data.png)
-
-> **Seed file** defines test users (Admin, Instructors, Students) and course data used to populate the database for development and testing.
 
 ---
 
@@ -217,8 +220,13 @@ lms/
 ```bash
 cd backend
 npm install
-cp .env .env
-# Edit .env with your MONGO_URI and JWT_SECRET
+Add .env file 
+# Edit .env with your
+PORT=5000
+MONGO_URI=mongodb+srv://******:********@cluster0.ao3dopn.mongodb.net/lms?retryWrites=true&w=majority&appName=Cluster0
+JWT_SECRET=your_super_secret_jwt_key_here
+JWT_EXPIRES_IN=7d
+CLIENT_URL= http://localhost:3000
 npm run dev
 ```
 
@@ -227,6 +235,8 @@ npm run dev
 ```bash
 cd frontend
 npm install
+Add .env file 
+# Edit .env with your REACT_APP_API_URL to Backend server running URL http://localhost:3000/api
 npm start
 ```
 
@@ -234,20 +244,6 @@ The backend runs on **http://localhost:5000** and the frontend on **http://local
 
 ---
 
-## 📊 Marking Criteria Coverage
-
-| Criteria                       | Implementation                              |
-| ------------------------------ | ------------------------------------------- |
-| UI/UX Design (15)              | Bootstrap 5, responsive layout, hero, cards |
-| React Implementation (15)      | Hooks, Context API, React Router v6         |
-| Backend API Development (20)   | Full RESTful API with Express               |
-| Database Design (15)           | Mongoose models with relationships          |
-| Authentication & Security (15) | JWT + bcrypt + protected routes             |
-| Role-Based Functionality (10)  | Admin/Instructor/Student dashboards         |
-| Code Quality & Structure (5)   | MVC pattern, services layer, clean code     |
-| Deployment & Testing (5)       | Ready for Heroku/Render/Vercel deployment   |
-
----
 
 ## 🚀 Deployment
 
@@ -266,5 +262,5 @@ Set environment variables on your hosting platform matching `.env`.
 I confirm that this project is my own work and I have not copied it from any unauthorized source.
 
 **Student Name:** Muhammad Khubaib
-**Signature:** \***\*\*\*\*\***\_\_\***\*\*\*\*\***  
-**Date:** \***\*\*\*\*\***\_\_\***\*\*\*\*\***
+---
+**Date:**  10 March 2026
