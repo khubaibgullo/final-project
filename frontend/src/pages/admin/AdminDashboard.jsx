@@ -23,15 +23,14 @@ const AdminDashboard = () => {
   return (
     <>
       <div className="dashboard-header">
-        <div style={{ maxWidth: 1100, margin: '0 auto', padding: '0 24px' }}>
-          <p style={{ fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--ink-muted)', marginBottom: 6 }}>Admin</p>
-          <h1 style={{ fontSize: '2rem', marginBottom: 4 }}>Dashboard</h1>
-          <p style={{ color: 'var(--ink-soft)' }}>System overview and management</p>
+        <div style={{ maxWidth: 1140, margin: '0 auto', padding: '0 24px' }}>
+          <p className="section-label">Admin</p>
+          <h1 style={{ fontSize: '2rem', fontWeight: 800, letterSpacing: '-0.03em', marginBottom: 4 }}>Dashboard</h1>
+          <p style={{ color: 'var(--text-secondary)' }}>System overview and management</p>
         </div>
       </div>
 
       <div className="dashboard-content">
-        {/* Stats row */}
         <div className="grid" style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(180px, 1fr))', marginBottom: 48 }}>
           {stats.map((s) => (
             <div key={s.label} className="stat-card">
@@ -41,8 +40,7 @@ const AdminDashboard = () => {
           ))}
         </div>
 
-        <div className="grid" style={{ gridTemplateColumns: '1fr 1fr', gap: 24 }}>
-          {/* Quick Actions */}
+        <div className="grid grid-2">
           <div className="card">
             <div className="card-header"><h3>Quick actions</h3></div>
             <div className="card-body" style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
@@ -55,12 +53,11 @@ const AdminDashboard = () => {
             </div>
           </div>
 
-          {/* Enrollment Trend */}
           <div className="card">
             <div className="card-header"><h3>Enrollment trend</h3></div>
             <div className="card-body">
               {!analytics?.enrollmentTrend?.length ? (
-                <p style={{ color: 'var(--ink-muted)', fontSize: '0.875rem' }}>No enrollment data yet.</p>
+                <p style={{ color: 'var(--text-muted)', fontSize: '0.875rem' }}>No enrollment data yet.</p>
               ) : (
                 <table className="lh-table">
                   <thead><tr><th>Month</th><th>Enrollments</th></tr></thead>
@@ -68,7 +65,7 @@ const AdminDashboard = () => {
                     {analytics.enrollmentTrend.map((t, i) => (
                       <tr key={i}>
                         <td>{t._id.month}/{t._id.year}</td>
-                        <td><strong>{t.count}</strong></td>
+                        <td><strong style={{ color: 'var(--text-primary)' }}>{t.count}</strong></td>
                       </tr>
                     ))}
                   </tbody>

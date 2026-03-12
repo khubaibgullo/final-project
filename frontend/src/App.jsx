@@ -4,7 +4,6 @@ import { AuthProvider } from './context/AuthContext';
 import ProtectedRoute from './routes/ProtectedRoute';
 import AppNavbar from './components/Navbar';
 
-// Public pages
 import Home from './pages/public/Home';
 import About from './pages/public/About';
 import CourseListing from './pages/public/CourseListing';
@@ -12,16 +11,13 @@ import CourseDetail from './pages/public/CourseDetail';
 import Login from './pages/public/Login';
 import Register from './pages/public/Register';
 
-// Student pages
 import StudentDashboard from './pages/student/StudentDashboard';
 import Profile from './pages/student/Profile';
 
-// Instructor pages
 import InstructorDashboard from './pages/instructor/InstructorDashboard';
 import CourseForm from './pages/instructor/CourseForm';
 import UploadLesson from './pages/instructor/UploadLesson';
 
-// Admin pages
 import AdminDashboard from './pages/admin/AdminDashboard';
 import ManageUsers from './pages/admin/ManageUsers';
 import AdminManageCourses from './pages/admin/AdminManageCourses';
@@ -32,7 +28,6 @@ function App() {
       <Router>
         <AppNavbar />
         <Routes>
-          {/* Public */}
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/courses" element={<CourseListing />} />
@@ -40,7 +35,6 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
 
-          {/* Student */}
           <Route path="/student/dashboard" element={
             <ProtectedRoute roles={['student']}><StudentDashboard /></ProtectedRoute>
           } />
@@ -48,7 +42,6 @@ function App() {
             <ProtectedRoute><Profile /></ProtectedRoute>
           } />
 
-          {/* Instructor */}
           <Route path="/instructor/dashboard" element={
             <ProtectedRoute roles={['instructor']}><InstructorDashboard /></ProtectedRoute>
           } />
@@ -62,7 +55,6 @@ function App() {
             <ProtectedRoute roles={['instructor']}><UploadLesson /></ProtectedRoute>
           } />
 
-          {/* Admin */}
           <Route path="/admin/dashboard" element={
             <ProtectedRoute roles={['admin']}><AdminDashboard /></ProtectedRoute>
           } />
@@ -73,11 +65,12 @@ function App() {
             <ProtectedRoute roles={['admin']}><AdminManageCourses /></ProtectedRoute>
           } />
 
-          {/* Fallbacks */}
           <Route path="/unauthorized" element={
-            <div style={{ textAlign: "center", padding: "100px 24px" }}>
-              <h2 style={{ fontSize: "2rem", marginBottom: 12 }}>Access denied</h2>
-              <p style={{ color: "var(--ink-muted)" }}>You don't have permission to view this page.</p>
+            <div style={{ minHeight: '60vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '80px 24px', textAlign: 'center' }}>
+              <div style={{ fontSize: '3rem', marginBottom: 16 }}>🔒</div>
+              <h2 style={{ fontSize: '1.75rem', fontWeight: 800, letterSpacing: '-0.03em', marginBottom: 10 }}>Access denied</h2>
+              <p style={{ color: 'var(--text-muted)', marginBottom: 28 }}>You don't have permission to view this page.</p>
+              <a href="/" className="btn-primary">Go home →</a>
             </div>
           } />
           <Route path="*" element={<Navigate to="/" replace />} />

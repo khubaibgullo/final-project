@@ -3,6 +3,29 @@ import { Link } from 'react-router-dom';
 import { getCourses } from '../../services/courseService';
 import CourseCard from '../../components/CourseCard';
 
+const CheckIcon = () => (
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+    <polyline points="20 6 9 17 4 12"/>
+  </svg>
+);
+const UsersIcon = () => (
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/>
+    <path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+  </svg>
+);
+const GlobeIcon = () => (
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/>
+    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+  </svg>
+);
+const AwardIcon = () => (
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/>
+  </svg>
+);
+
 const Home = () => {
   const [featuredCourses, setFeaturedCourses] = useState([]);
 
@@ -11,22 +34,22 @@ const Home = () => {
   }, []);
 
   const features = [
-    { icon: '◎', title: 'Expert Instructors', desc: 'Learn from industry professionals with real-world experience and proven track records.' },
-    { icon: '◈', title: 'Learn Anywhere', desc: 'Access your courses on any device, anytime. Set your own pace and study on your schedule.' },
-    { icon: '◇', title: 'Certificates', desc: 'Earn verifiable certificates to showcase your new skills to employers and clients.' },
+    { icon: <UsersIcon />, title: 'Expert Instructors', desc: 'Learn from industry professionals with real-world experience and proven track records.' },
+    { icon: <GlobeIcon />, title: 'Learn Anywhere', desc: 'Access your courses on any device, anytime. Set your own pace and study on your schedule.' },
+    { icon: <AwardIcon />, title: 'Earn Certificates', desc: 'Receive verifiable certificates to showcase your new skills to employers and clients.' },
   ];
 
   return (
     <>
       {/* Hero */}
       <section className="hero">
-        <span className="hero__eyebrow">Learning reimagined</span>
+        <span className="hero__eyebrow">✦ Learning reimagined</span>
         <h1 className="hero__title">Learn without <em>limits</em></h1>
         <p className="hero__subtitle">
-          Join thousands of students acquiring in-demand skills from world-class instructors.
+          Join thousands of students acquiring in-demand skills from world-class instructors. Start today.
         </p>
         <div className="hero__cta">
-          <Link to="/courses" className="btn-primary btn-lg">Browse courses</Link>
+          <Link to="/courses" className="btn-primary btn-lg">Browse courses →</Link>
           <Link to="/register" className="btn-secondary btn-lg">Start teaching</Link>
         </div>
         <div className="hero__stats">
@@ -46,14 +69,14 @@ const Home = () => {
 
       {/* Featured Courses */}
       {featuredCourses.length > 0 && (
-        <section className="section">
+        <section className="section--secondary">
           <div className="container">
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: 40 }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: 40, flexWrap: 'wrap', gap: 16 }}>
               <div>
-                <p style={{ fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--ink-muted)', marginBottom: 8 }}>Handpicked for you</p>
-                <h2 style={{ fontSize: '2rem' }}>Featured courses</h2>
+                <p className="section-label">Handpicked for you</p>
+                <h2 className="section-title">Featured courses</h2>
               </div>
-              <Link to="/courses" className="btn-ghost">View all →</Link>
+              <Link to="/courses" className="btn-ghost">View all courses →</Link>
             </div>
             <div className="grid grid-3">
               {featuredCourses.map((course) => (
@@ -65,18 +88,18 @@ const Home = () => {
       )}
 
       {/* Why LearnHub */}
-      <section className="section section--warm">
+      <section className="section">
         <div className="container">
           <div style={{ textAlign: 'center', marginBottom: 56 }}>
-            <p style={{ fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--ink-muted)', marginBottom: 8 }}>Why us</p>
-            <h2 style={{ fontSize: '2rem' }}>Everything you need to grow</h2>
+            <p className="section-label">Why us</p>
+            <h2 className="section-title">Everything you need to grow</h2>
           </div>
           <div className="grid grid-3">
             {features.map((item) => (
-              <div key={item.title} className="card" style={{ padding: '32px', textAlign: 'center' }}>
-                <div style={{ fontSize: '1.8rem', marginBottom: 16, color: 'var(--accent)' }}>{item.icon}</div>
-                <h3 style={{ fontSize: '1.1rem', marginBottom: 10, fontFamily: 'DM Serif Display, Georgia, serif' }}>{item.title}</h3>
-                <p style={{ color: 'var(--ink-soft)', fontSize: '0.875rem', lineHeight: 1.65 }}>{item.desc}</p>
+              <div key={item.title} className="feature-card">
+                <div className="feature-card__icon">{item.icon}</div>
+                <h3>{item.title}</h3>
+                <p>{item.desc}</p>
               </div>
             ))}
           </div>
@@ -84,19 +107,36 @@ const Home = () => {
       </section>
 
       {/* CTA Banner */}
-      <section style={{ background: 'var(--ink)', padding: '80px 24px', textAlign: 'center' }}>
+      <section style={{ background: 'var(--accent)', padding: '80px 24px', textAlign: 'center' }}>
         <div className="container">
-          <h2 style={{ color: 'var(--paper)', fontSize: '2.2rem', marginBottom: 12 }}>Ready to start learning?</h2>
-          <p style={{ color: 'rgba(250,249,247,0.6)', marginBottom: 32, fontSize: '1rem' }}>
+          <h2 style={{ color: 'white', fontSize: 'clamp(1.6rem,3vw,2.2rem)', marginBottom: 12, letterSpacing: '-0.03em' }}>
+            Ready to start learning?
+          </h2>
+          <p style={{ color: 'rgba(255,255,255,0.75)', marginBottom: 32, fontSize: '1rem' }}>
             Join over 10,000 students already learning on LearnHub.
           </p>
-          <Link to="/register" style={{ background: 'var(--accent)', color: 'white', padding: '14px 32px', borderRadius: 8, textDecoration: 'none', fontWeight: 500, fontSize: '0.9rem' }}>
-            Create your free account
-          </Link>
+          <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap' }}>
+            <Link to="/register" style={{
+              display: 'inline-flex', alignItems: 'center', gap: 6,
+              padding: '14px 28px', background: 'white', color: 'var(--accent)',
+              borderRadius: '100px', fontWeight: 700, fontSize: '0.9rem',
+              textDecoration: 'none', transition: 'all 0.2s',
+            }}>
+              Create free account →
+            </Link>
+            <Link to="/courses" style={{
+              display: 'inline-flex', alignItems: 'center', gap: 6,
+              padding: '14px 28px', background: 'rgba(255,255,255,0.15)', color: 'white',
+              borderRadius: '100px', fontWeight: 600, fontSize: '0.9rem',
+              textDecoration: 'none', border: '1.5px solid rgba(255,255,255,0.4)',
+              transition: 'all 0.2s',
+            }}>
+              Browse courses
+            </Link>
+          </div>
         </div>
       </section>
 
-      {/* Footer */}
       <footer className="lh-footer">
         <p>© {new Date().getFullYear()} <span>LearnHub</span> — Built with MERN Stack</p>
       </footer>

@@ -26,25 +26,29 @@ const CourseListing = () => {
   };
 
   useEffect(() => { fetchCourses(); }, [page, category]);
-
   const handleSearch = (e) => { e.preventDefault(); setPage(1); fetchCourses(); };
 
   return (
     <>
-      <div style={{ background: 'var(--paper-warm)', borderBottom: '1px solid var(--paper-mid)', padding: '48px 24px 0' }}>
+      {/* Header */}
+      <div style={{ background: 'var(--bg-secondary)', borderBottom: '1px solid var(--border)', padding: '48px 24px 0' }}>
         <div className="container">
-          <p style={{ fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--ink-muted)', marginBottom: 8 }}>All courses</p>
-          <h1 style={{ fontSize: '2.4rem', marginBottom: 32 }}>Explore courses</h1>
-
-          <form onSubmit={handleSearch} style={{ marginBottom: 28 }}>
-            <div style={{ display: 'flex', gap: 12, maxWidth: 540 }}>
+          <p className="section-label">All courses</p>
+          <h1 style={{ fontSize: 'clamp(1.8rem,4vw,2.5rem)', fontWeight: 800, letterSpacing: '-0.03em', marginBottom: 28 }}>
+            Explore courses
+          </h1>
+          <form onSubmit={handleSearch} style={{ marginBottom: 24 }}>
+            <div style={{ display: 'flex', gap: 12, maxWidth: 520 }}>
               <div className="search-bar" style={{ flex: 1 }}>
-                <input placeholder="Search by title or topic…" value={search} onChange={(e) => setSearch(e.target.value)} />
+                <input
+                  placeholder="Search by title or topic…"
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
+                />
                 <button type="submit">Search</button>
               </div>
             </div>
           </form>
-
           <div className="pills" style={{ paddingBottom: 20 }}>
             {CATEGORIES.map((c) => (
               <button key={c} className={`pill ${category === c ? 'active' : ''}`}
@@ -56,35 +60,38 @@ const CourseListing = () => {
         </div>
       </div>
 
-      <div className="container" style={{ padding: '40px 24px' }}>
-        {loading ? (
-          <div className="spinner-page"><div className="spinner" /></div>
-        ) : courses.length === 0 ? (
-          <div className="empty-state">
-            <div className="empty-state__icon">◎</div>
-            <p>No courses found for your search.</p>
-            <button className="btn-secondary" onClick={() => { setSearch(''); setCategory('All'); setPage(1); }}>
-              Clear filters
-            </button>
-          </div>
-        ) : (
-          <>
-            <p style={{ color: 'var(--ink-muted)', fontSize: '0.8rem', marginBottom: 24 }}>
-              {courses.length} courses {category !== 'All' ? `in ${category}` : ''}
-            </p>
-            <div className="grid grid-3">
-              {courses.map((course) => <CourseCard key={course._id} course={course} />)}
+      {/* Course Grid */}
+      <div style={{ background: 'var(--bg-secondary)', minHeight: '60vh' }}>
+        <div className="container" style={{ padding: '40px 24px' }}>
+          {loading ? (
+            <div className="spinner-page"><div className="spinner" /></div>
+          ) : courses.length === 0 ? (
+            <div className="empty-state">
+              <div className="empty-state__icon">◎</div>
+              <p>No courses found for your search.</p>
+              <button className="btn-secondary" onClick={() => { setSearch(''); setCategory('All'); setPage(1); }}>
+                Clear filters
+              </button>
             </div>
-          </>
-        )}
+          ) : (
+            <>
+              <p style={{ color: 'var(--text-muted)', fontSize: '0.8rem', marginBottom: 24, fontWeight: 500 }}>
+                {courses.length} course{courses.length !== 1 ? 's' : ''}{category !== 'All' ? ` in ${category}` : ''}
+              </p>
+              <div className="grid grid-3">
+                {courses.map((course) => <CourseCard key={course._id} course={course} />)}
+              </div>
+            </>
+          )}
 
-        {totalPages > 1 && (
-          <div className="pagination">
-            <button disabled={page === 1} onClick={() => setPage(p => p - 1)}>← Previous</button>
-            <span>Page {page} of {totalPages}</span>
-            <button disabled={page === totalPages} onClick={() => setPage(p => p + 1)}>Next →</button>
-          </div>
-        )}
+          {totalPages > 1 && (
+            <div className="pagination">
+              <button disabled={page === 1} onClick={() => setPage(p => p - 1)}>← Previous</button>
+              <span>Page {page} of {totalPages}</span>
+              <button disabled={page === totalPages} onClick={() => setPage(p => p + 1)}>Next →</button>
+            </div>
+          )}
+        </div>
       </div>
     </>
   );

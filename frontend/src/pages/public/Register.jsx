@@ -25,14 +25,17 @@ const Register = () => {
   return (
     <div className="auth-layout">
       <div className="auth-card">
-        <h1 className="auth-title">Create account</h1>
-        <p className="auth-subtitle">Join thousands of learners on LearnHub</p>
+        <div style={{ marginBottom: 28, textAlign: 'center' }}>
+          <div style={{ width: 48, height: 48, background: 'var(--accent)', borderRadius: 12, display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 16px', color: 'white', fontWeight: 900, fontSize: '1rem' }}>LH</div>
+          <h1 className="auth-title">Create account</h1>
+          <p className="auth-subtitle">Join thousands of learners on LearnHub</p>
+        </div>
 
         {error && (
           <div className="alert alert-danger">
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style={{ flexShrink: 0 }}>
-              <circle cx="8" cy="8" r="7" stroke="currentColor" strokeWidth="1.5" />
-              <path d="M8 5v4M8 11v.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+              <circle cx="8" cy="8" r="7" stroke="currentColor" strokeWidth="1.5"/>
+              <path d="M8 5v4M8 11v.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
             </svg>
             {error}
           </div>
@@ -61,7 +64,7 @@ const Register = () => {
               <option value="instructor">Instructor — I want to teach</option>
             </select>
           </div>
-          <button type="submit" className="btn-primary btn-full" disabled={loading}>
+          <button type="submit" className="btn-primary btn-full btn-lg" disabled={loading}>
             {loading ? 'Creating account…' : 'Create account →'}
           </button>
         </form>

@@ -18,18 +18,19 @@ const StudentDashboard = () => {
   return (
     <>
       <div className="dashboard-header">
-        <div style={{ maxWidth: 1100, margin: '0 auto', padding: '0 24px' }}>
-          <p style={{ fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--ink-muted)', marginBottom: 6 }}>Student Dashboard</p>
-          <h1 style={{ fontSize: '2rem', marginBottom: 4 }}>Hello, {user?.name}</h1>
-          <p style={{ color: 'var(--ink-soft)' }}>Continue your learning journey.</p>
+        <div style={{ maxWidth: 1140, margin: '0 auto', padding: '0 24px' }}>
+          <p className="section-label">Student Dashboard</p>
+          <h1 style={{ fontSize: '2rem', fontWeight: 800, letterSpacing: '-0.03em', marginBottom: 4 }}>
+            Hello, {user?.name} 👋
+          </h1>
+          <p style={{ color: 'var(--text-secondary)' }}>Continue your learning journey.</p>
         </div>
       </div>
 
       <div className="dashboard-content">
-        {/* Stats */}
         <div className="grid grid-3" style={{ marginBottom: 48 }}>
           {[
-            { label: 'Enrolled courses', value: enrollments.length },
+            { label: 'Enrolled', value: enrollments.length },
             { label: 'In progress', value: inProgress },
             { label: 'Completed', value: completed },
           ].map((s) => (
@@ -40,9 +41,8 @@ const StudentDashboard = () => {
           ))}
         </div>
 
-        {/* Courses */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 24 }}>
-          <h2 style={{ fontSize: '1.4rem' }}>My courses</h2>
+          <h2 style={{ fontSize: '1.3rem', fontWeight: 700, letterSpacing: '-0.02em' }}>My courses</h2>
           <Link to="/courses" className="btn-ghost btn-sm">Browse more →</Link>
         </div>
 
@@ -50,7 +50,7 @@ const StudentDashboard = () => {
           <div className="spinner-page"><div className="spinner" /></div>
         ) : enrollments.length === 0 ? (
           <div className="empty-state">
-            <div className="empty-state__icon">◎</div>
+            <div className="empty-state__icon">📚</div>
             <p>You haven't enrolled in any courses yet.</p>
             <Link to="/courses" className="btn-primary">Explore courses</Link>
           </div>
@@ -64,13 +64,13 @@ const StudentDashboard = () => {
                       {enrollment.progress >= 100 ? 'Completed' : 'In progress'}
                     </span>
                   </div>
-                  <h3 style={{ fontSize: '1rem', marginBottom: 6, fontFamily: 'DM Serif Display, Georgia, serif' }}>
+                  <h3 style={{ fontSize: '0.975rem', fontWeight: 600, marginBottom: 6, letterSpacing: '-0.01em', lineHeight: 1.4 }}>
                     {enrollment.course?.title}
                   </h3>
-                  <p style={{ color: 'var(--ink-muted)', fontSize: '0.8rem', marginBottom: 16 }}>
+                  <p style={{ color: 'var(--text-muted)', fontSize: '0.78rem', marginBottom: 16, fontWeight: 500 }}>
                     {enrollment.course?.instructor?.name}
                   </p>
-                  <div style={{ marginBottom: 6, display: 'flex', justifyContent: 'space-between', fontSize: '0.75rem', color: 'var(--ink-muted)' }}>
+                  <div style={{ marginBottom: 6, display: 'flex', justifyContent: 'space-between', fontSize: '0.75rem', color: 'var(--text-muted)', fontWeight: 600 }}>
                     <span>Progress</span>
                     <span>{enrollment.progress}%</span>
                   </div>

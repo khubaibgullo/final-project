@@ -1,15 +1,17 @@
 import { Link } from 'react-router-dom';
 
 const CourseCard = ({ course }) => (
-  <div className="course-card card-hover">
-    <img
-      className="course-card__img"
-      src={course.thumbnail || `https://picsum.photos/seed/${course._id}/600/360`}
-      alt={course.title}
-      onError={(e) => { e.target.src = `https://picsum.photos/seed/${encodeURIComponent(course.title)}/600/360`; }}
-    />
+  <div className="course-card">
+    <div className="course-card__img-wrapper">
+      <img
+        className="course-card__img"
+        src={course.thumbnail || `https://picsum.photos/seed/${course._id}/600/360`}
+        alt={course.title}
+        onError={(e) => { e.target.src = `https://picsum.photos/seed/${encodeURIComponent(course.title)}/600/360`; }}
+      />
+    </div>
     <div className="course-card__body">
-      <div><span className="badge badge-default">{course.category}</span></div>
+      <div><span className="badge badge-primary">{course.category}</span></div>
       <div className="course-card__title">{course.title}</div>
       <div className="course-card__desc">{course.description?.substring(0, 110)}…</div>
       <div className="course-card__meta">

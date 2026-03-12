@@ -24,20 +24,18 @@ const Profile = () => {
 
   return (
     <div style={{ maxWidth: 520, margin: '0 auto', padding: '60px 24px' }}>
-      <h1 style={{ fontSize: '2rem', marginBottom: 32 }}>My profile</h1>
+      <h1 style={{ fontSize: '2rem', fontWeight: 800, letterSpacing: '-0.03em', marginBottom: 32 }}>My profile</h1>
 
-      <div className="card" style={{ marginBottom: 32, padding: '32px', textAlign: 'center' }}>
+      <div className="card" style={{ marginBottom: 24, padding: '32px', textAlign: 'center' }}>
         <div style={{
-          width: 72, height: 72,
-          background: 'var(--ink)', borderRadius: '50%',
+          width: 72, height: 72, background: 'var(--accent)', borderRadius: '50%',
           display: 'flex', alignItems: 'center', justifyContent: 'center',
-          fontSize: '1.8rem', color: 'var(--paper)', margin: '0 auto 16px',
-          fontFamily: 'DM Serif Display, Georgia, serif',
+          fontSize: '1.6rem', color: 'white', margin: '0 auto 16px', fontWeight: 800,
         }}>
           {user?.name?.charAt(0).toUpperCase()}
         </div>
-        <p style={{ fontWeight: 500, marginBottom: 6 }}>{user?.name}</p>
-        <p style={{ color: 'var(--ink-muted)', fontSize: '0.875rem', marginBottom: 12 }}>{user?.email}</p>
+        <p style={{ fontWeight: 600, marginBottom: 4, fontSize: '1rem' }}>{user?.name}</p>
+        <p style={{ color: 'var(--text-muted)', fontSize: '0.875rem', marginBottom: 12 }}>{user?.email}</p>
         <span className={`badge ${ROLE_BADGE[user?.role] || 'badge-default'}`}>{user?.role}</span>
       </div>
 

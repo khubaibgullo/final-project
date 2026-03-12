@@ -25,11 +25,11 @@ const InstructorDashboard = () => {
   return (
     <>
       <div className="dashboard-header">
-        <div style={{ maxWidth: 1100, margin: '0 auto', padding: '0 24px', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
+        <div style={{ maxWidth: 1140, margin: '0 auto', padding: '0 24px', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', flexWrap: 'wrap', gap: 16 }}>
           <div>
-            <p style={{ fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--ink-muted)', marginBottom: 6 }}>Instructor</p>
-            <h1 style={{ fontSize: '2rem', marginBottom: 4 }}>Dashboard</h1>
-            <p style={{ color: 'var(--ink-soft)' }}>Welcome back, {user?.name}</p>
+            <p className="section-label">Instructor</p>
+            <h1 style={{ fontSize: '2rem', fontWeight: 800, letterSpacing: '-0.03em', marginBottom: 4 }}>Dashboard</h1>
+            <p style={{ color: 'var(--text-secondary)' }}>Welcome back, {user?.name}</p>
           </div>
           <Link to="/instructor/create-course" className="btn-primary">+ New course</Link>
         </div>
@@ -58,23 +58,18 @@ const InstructorDashboard = () => {
               <table className="lh-table">
                 <thead>
                   <tr>
-                    <th>Title</th>
-                    <th>Category</th>
-                    <th>Price</th>
-                    <th>Enrollments</th>
-                    <th>Status</th>
-                    <th>Actions</th>
+                    <th>Title</th><th>Category</th><th>Price</th><th>Enrollments</th><th>Status</th><th>Actions</th>
                   </tr>
                 </thead>
                 <tbody>
                   {courses.length === 0 && (
-                    <tr><td colSpan={6} style={{ textAlign: 'center', color: 'var(--ink-muted)', padding: 40 }}>No courses yet. Create your first one!</td></tr>
+                    <tr><td colSpan={6} style={{ textAlign: 'center', color: 'var(--text-muted)', padding: 40 }}>No courses yet. Create your first one!</td></tr>
                   )}
                   {courses.map((course) => (
                     <tr key={course._id}>
-                      <td style={{ fontWeight: 500, color: 'var(--ink)' }}>{course.title}</td>
+                      <td style={{ fontWeight: 600, color: 'var(--text-primary)' }}>{course.title}</td>
                       <td><span className="badge badge-default">{course.category}</span></td>
-                      <td>{course.price === 0 ? 'Free' : `$${course.price}`}</td>
+                      <td style={{ fontWeight: 600 }}>{course.price === 0 ? <span style={{ color: 'var(--success)' }}>Free</span> : `$${course.price}`}</td>
                       <td>{course.enrollmentCount || 0}</td>
                       <td>
                         <span className={`badge ${course.isPublished ? 'badge-success' : 'badge-warning'}`}>
