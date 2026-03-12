@@ -1,11 +1,13 @@
 ## 📂 Note
-- The backend is deployed on Render’s Free Plan. The server automatically "sleeps" after 15 minutes of inactivity. If you are accessing the app for the first time in a while, it may take 30–60 seconds for the server to spin up and respond to the first request. 
+
+- The backend is deployed on Render’s Free Plan. The server automatically "sleeps" after 15 minutes of inactivity. If you are accessing the app for the first time in a while, it may take 30–60 seconds for the server to spin up and respond to the first request.
 
 # 🎓 LearnHub — Full Stack MERN Learning Management System
 
 ---
 
 ## 📂 Project Links
+
 - **GitHub Repository:** [https://github.com/khubaibgullo/final-project](https://github.com/khubaibgullo/final-project)
 - **Live Deployment:** [Vercel App](https://final-project-amber-kappa.vercel.app/)
 - **Api BASE_URL:** [Render](https://final-project-naqk.onrender.com/)
@@ -101,8 +103,8 @@ lms/
 ---
 
 ## 🧾 Database Design
-![ERD Diagram](<Images/ERD-diagram.png>)
 
+![ERD Diagram](Images/ERD-diagram.png)
 
 ---
 
@@ -173,39 +175,81 @@ lms/
 
 ## 🖼️ Screenshots
 
+### 🗄️ Database ERD
+
+![ERD Diagram](Images/ERD-diagram.png)
+
 ### 🔑 Admin Module
 
-![Admin Screenshot 1](<Images/admin/Screenshot%20(312).png>)
-![Admin Screenshot 2](<Images/admin/Screenshot%20(313).png>)
-![Admin Screenshot 3](<Images/admin/Screenshot%20(314).png>)
-![Admin Screenshot 4](<Images/admin/Screenshot%20(315).png>)
-![Admin Screenshot 5](<Images/admin/Screenshot%20(316).png>)
-![Admin Screenshot 5](<Images/admin/Screenshot%20(317).png>)
+![Admin Screenshot 1](<Images/admin/Screenshot (332).png>)
+![Admin Screenshot 2](<Images/admin/Screenshot (333).png>)
+![Admin Screenshot 3](<Images/admin/Screenshot (334).png>)
+![Admin Screenshot 4](<Images/admin/Screenshot (335).png>)
+![Admin Screenshot 5](<Images/admin/Screenshot (336).png>)
+![Admin Screenshot 6](<Images/admin/Screenshot (337).png>)
 
 ---
 
 ### 🧑‍🏫 Instructor Module
 
-![Instructor Screenshot 1](<Images/instructor/Screenshot%20(324).png>)
-![Instructor Screenshot 2](<Images/instructor/Screenshot%20(325).png>)
-![Instructor Screenshot 3](<Images/instructor/Screenshot%20(326).png>)
-![Instructor Screenshot 4](<Images/instructor/Screenshot%20(327).png>)
-![Instructor Screenshot 3](<Images/instructor/Screenshot%20(328).png>)
-![Instructor Screenshot 4](<Images/instructor/Screenshot%20(329).png>)
+![Instructor Screenshot 1](<Images/instructor/Screenshot (338).png>)
+![Instructor Screenshot 2](<Images/instructor/Screenshot (339).png>)
+![Instructor Screenshot 3](<Images/instructor/Screenshot (340).png>)
+![Instructor Screenshot 4](<Images/instructor/Screenshot (341).png>)
+![Instructor Screenshot 5](<Images/instructor/Screenshot (342).png>)
 
 ---
 
 ### 🎓 Student / User Module
 
-![User Screenshot 1](<Images/user/Screenshot%20(318).png>)
-![User Screenshot 2](<Images/user/Screenshot%20(319).png>)
-![User Screenshot 3](<Images/user/Screenshot%20(320).png>)
-![User Screenshot 4](<Images/user/Screenshot%20(321).png>)
-![User Screenshot 5](<Images/user/Screenshot%20(322).png>)
-![User Screenshot 5](<Images/user/Screenshot%20(323).png>)
-
+![User Screenshot 1](<Images/user/Screenshot (343).png>)
+![User Screenshot 2](<Images/user/Screenshot (344).png>)
+![User Screenshot 3](<Images/user/Screenshot (345).png>)
+![User Screenshot 4](<Images/user/Screenshot (346).png>)
+![User Screenshot 5](<Images/user/Screenshot (358).png>)
+![User Screenshot 6](<Images/user/Screenshot (359).png>)
 
 ---
+
+### 📱 Mobile View
+
+### 📱 Mobile View
+
+<table>
+  <tr>
+    <td><img src="Images/mobile/img1.jpeg" width="200"/></td>
+    <td><img src="Images/mobile/img2.jpeg" width="200"/></td>
+    <td><img src="Images/mobile/img3.jpeg" width="200"/></td>
+  </tr>
+  <tr>
+    <td><img src="Images/mobile/img4.jpeg" width="200"/></td>
+    <td><img src="Images/mobile/img6.jpeg" width="200"/></td>
+    <td><img src="Images/mobile/img7.jpeg" width="200"/></td>
+  </tr>
+  <tr>
+    <td><img src="Images/mobile/img7.jpeg" width="200"/></td>
+    <td><img src="Images/mobile/img13.jpeg" width="200"/></td>
+    <td><img src="Images/mobile/img9.jpeg" width="200"/></td>
+  </tr>
+  <tr>
+    <td><img src="Images/mobile/img10.jpeg" width="200"/></td>
+    <td><img src="Images/mobile/img11.jpeg" width="200"/></td>
+    <td><img src="Images/mobile/img12.jpeg" width="200"/></td>
+  </tr>
+</table>
+---
+
+### 🎨 Theme / UI
+
+![Theme Screenshot 2](<Images/theme/Screenshot (350).png>)
+![Theme Screenshot 3](<Images/theme/Screenshot (351).png>)
+![Theme Screenshot 5](<Images/theme/Screenshot (354).png>)
+![Theme Screenshot 6](<Images/theme/Screenshot (355).png>)
+
+---
+
+````
+
 
 ## ⚙️ Installation & Setup
 
@@ -220,7 +264,7 @@ lms/
 ```bash
 cd backend
 npm install
-Add .env file 
+Add .env file
 # Edit .env with your
 PORT=5000
 MONGO_URI=mongodb+srv://******:********@cluster0.ao3dopn.mongodb.net/lms?retryWrites=true&w=majority&appName=Cluster0
@@ -228,22 +272,22 @@ JWT_SECRET=your_super_secret_jwt_key_here
 JWT_EXPIRES_IN=7d
 CLIENT_URL= http://localhost:3000
 npm run dev
-```
+````
 
 ### 2. Install & Start Frontend
 
 ```bash
 cd frontend
 npm install
-Add .env file 
-# Edit .env with your REACT_APP_API_URL to Backend server running URL http://localhost:3000/api
+Add .env file
+# Edit .env with your REACT_APP_API_URL to Backend server running URL
+# REACT_APP_API_URL=http://localhost:5000/api
 npm start
 ```
 
-The backend runs on **http://localhost:5000** and the frontend on **http://localhost:3000**.
+The Frontend runs on **http://localhost:5000** and the backend on **http://localhost:3000**.
 
 ---
-
 
 ## 🚀 Deployment
 
@@ -261,6 +305,6 @@ Set environment variables on your hosting platform matching `.env`.
 
 I confirm that this project is my own work and I have not copied it from any unauthorized source.
 
-**Student Name:** Muhammad Khubaib
----
-**Date:**  10 March 2026
+## **Student Name:** Muhammad Khubaib
+
+**Date:** 10 March 2026
