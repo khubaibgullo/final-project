@@ -82,7 +82,7 @@ const buildCourses = (instructorIds) => {
 			instructor: ahmed,
 			category: "Web Development",
 			price: 0,
-			thumbnail: "https://placehold.co/600x340/61DAFB/000000?text=React+JS",
+			thumbnail: "https://miro.medium.com/1*yjH3SiDaVWtpBX0g_2q68g.png",
 			isPublished: true,
 			enrollmentCount: 0,
 			lessons: [
@@ -103,7 +103,8 @@ const buildCourses = (instructorIds) => {
 			instructor: ahmed,
 			category: "Web Development",
 			price: 29,
-			thumbnail: "https://placehold.co/600x340/339933/ffffff?text=Node.js",
+			thumbnail:
+				"https://nodejs.org/en/next-data/og/announcement/Node.js%20%E2%80%94%20Download%20Node.js%C2%AE",
 			isPublished: true,
 			enrollmentCount: 0,
 			lessons: [
@@ -123,7 +124,8 @@ const buildCourses = (instructorIds) => {
 			instructor: usman,
 			category: "Web Development",
 			price: 19,
-			thumbnail: "https://placehold.co/600x340/47A248/ffffff?text=MongoDB",
+			thumbnail:
+				"https://javascript-mastery.s3.amazonaws.com/assets/content/courses/1739257078231/thumbnail/Database%20Mastery%3A%20MongoDB.png",
 			isPublished: true,
 			enrollmentCount: 0,
 			lessons: [
@@ -144,7 +146,8 @@ const buildCourses = (instructorIds) => {
 			instructor: sara,
 			category: "Data Science",
 			price: 49,
-			thumbnail: "https://placehold.co/600x340/3776AB/ffffff?text=Python+DS",
+			thumbnail:
+				"https://www.mygreatlearning.com/blog/wp-content/uploads/2019/09/What-is-data-science-2.jpg",
 			isPublished: true,
 			enrollmentCount: 0,
 			lessons: [
@@ -165,7 +168,7 @@ const buildCourses = (instructorIds) => {
 			category: "Data Science",
 			price: 59,
 			thumbnail:
-				"https://placehold.co/600x340/FF6F00/ffffff?text=Machine+Learning",
+				"https://www.blumeglobal.com/media/wp-content/uploads/2018/11/shutterstock_344688470-scaled.jpg?v=1da4871749754f0",
 			isPublished: true,
 			enrollmentCount: 0,
 			lessons: [
@@ -187,7 +190,8 @@ const buildCourses = (instructorIds) => {
 			instructor: sara,
 			category: "Design",
 			price: 0,
-			thumbnail: "https://placehold.co/600x340/F24E1E/ffffff?text=Figma+Design",
+			thumbnail:
+				"https://media.licdn.com/dms/image/v2/D5612AQEToo1lXtf-mg/article-cover_image-shrink_600_2000/article-cover_image-shrink_600_2000/0/1703048579080?e=2147483647&v=beta&t=l4FEMZsP7S8fR9TMzhYmTzsGCtTm21gJNurMunCtObc",
 			isPublished: true,
 			enrollmentCount: 0,
 			lessons: [
@@ -213,7 +217,8 @@ const buildCourses = (instructorIds) => {
 			instructor: usman,
 			category: "Mobile Development",
 			price: 39,
-			thumbnail: "https://placehold.co/600x340/20232A/61DAFB?text=React+Native",
+			thumbnail:
+				"https://appwrite.io/images/blog/introducing-appwrite-react-native-sdk/cover.png",
 			isPublished: true,
 			enrollmentCount: 0,
 			lessons: [
@@ -235,7 +240,8 @@ const buildCourses = (instructorIds) => {
 			instructor: usman,
 			category: "Business",
 			price: 0,
-			thumbnail: "https://placehold.co/600x340/6C63FF/ffffff?text=Freelancing",
+			thumbnail:
+				"https://static.skillshare.com/uploads/video/thumbnails/9ab8f44d8315c52056d722bf56803f13/original",
 			isPublished: true,
 			enrollmentCount: 0,
 			lessons: [
@@ -265,7 +271,7 @@ const buildCourses = (instructorIds) => {
 			category: "Web Development",
 			price: 24,
 			thumbnail:
-				"https://media2.dev.to/dynamic/image/width=1000,height=420,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2Fko0k3eqkf1n8k3oqlk8v.jpg",
+				"https://maybe.works/media/blogs/typescript-what-is-its-power/1100x600.jpg",
 			isPublished: false,
 			enrollmentCount: 0,
 			lessons: [
